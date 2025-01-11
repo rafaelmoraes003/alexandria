@@ -130,7 +130,7 @@ This API provides endpoints for managing:
    ```bash
    mvn spring-boot:run
    ```
-6. Access the API at `http://localhost:8080`.
+6. Access the API at `http://localhost:8080`
 
 ---
 
