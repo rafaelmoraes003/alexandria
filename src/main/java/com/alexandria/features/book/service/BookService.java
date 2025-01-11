@@ -71,4 +71,15 @@ public class BookService {
     return bookDetailRepository.save(bookDetail);
   }
 
+  public BookDetail getBookDetail(Long bookId) throws ObjectNotFoundException {
+    Book book = findById(bookId);
+    BookDetail bookDetail = book.getDetail();
+
+    if (bookDetail == null) {
+      throw new ObjectNotFoundException("book detail not found.");
+    }
+
+    return bookDetail;
+  }
+
 }
