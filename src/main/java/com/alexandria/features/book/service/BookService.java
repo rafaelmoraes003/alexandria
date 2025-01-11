@@ -5,6 +5,8 @@ import com.alexandria.features.book.entity.Book;
 import com.alexandria.features.book.entity.BookDetail;
 import com.alexandria.features.book.repository.BookDetailRepository;
 import com.alexandria.features.book.repository.BookRepository;
+import com.alexandria.features.publisher.entity.Publisher;
+import com.alexandria.features.publisher.service.PublisherService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,14 +19,17 @@ public class BookService {
 
   private final BookRepository bookRepository;
   private final BookDetailRepository bookDetailRepository;
+  private final PublisherService publisherService;
 
   @Autowired
   public BookService(
       BookRepository bookRepository,
-      BookDetailRepository bookDetailRepository
+      BookDetailRepository bookDetailRepository,
+      PublisherService publisherService
   ) {
     this.bookRepository = bookRepository;
     this.bookDetailRepository = bookDetailRepository;
+    this.publisherService = publisherService;
   }
 
   public Book findById(Long id) throws ObjectNotFoundException {
@@ -109,6 +114,16 @@ public class BookService {
     bookDetailRepository.delete(bookDetail);
 
     return bookDetail;
+  }
+
+  public Book setBookPublisher(Long bookId, Long publisherId)
+      throws ObjectNotFoundException {
+    Book book = findById(bookId);
+    Publisher publisher = publisherService.findById(publisherId);
+
+    book.setPublisher(publisher);
+
+    return bookRepository.save(book);
   }
 
 }
