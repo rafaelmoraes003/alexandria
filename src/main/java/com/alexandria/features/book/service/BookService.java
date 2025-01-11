@@ -94,4 +94,21 @@ public class BookService {
     return bookDetailRepository.save(bookDetailDB);
   }
 
+  public BookDetail removeBookDetail(Long bookId)
+      throws ObjectNotFoundException {
+    Book book = findById(bookId);
+    BookDetail bookDetail = book.getDetail();
+
+    if (bookDetail == null) {
+      throw new ObjectNotFoundException("book detail not found.");
+    }
+
+    book.setDetail(null);
+    bookDetail.setBook(null);
+
+    bookDetailRepository.delete(bookDetail);
+
+    return bookDetail;
+  }
+
 }
