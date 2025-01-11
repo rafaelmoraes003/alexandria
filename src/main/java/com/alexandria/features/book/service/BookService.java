@@ -126,4 +126,12 @@ public class BookService {
     return bookRepository.save(book);
   }
 
+  public Book removeBookPublisher(Long bookId) throws ObjectNotFoundException {
+    Book book = findById(bookId);
+
+    book.setPublisher(null);
+
+    return bookRepository.save(book);
+  }
+
 }
