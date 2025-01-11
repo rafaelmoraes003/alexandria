@@ -149,4 +149,14 @@ public class BookService {
     return bookRepository.save(book);
   }
 
+  public Book removeBookAuthor(Long bookId, Long authorId)
+      throws ObjectNotFoundException {
+    Book book = findById(bookId);
+    Author author = authorService.findById(authorId);
+
+    book.getAuthors().remove(author);
+
+    return bookRepository.save(book);
+  }
+
 }
