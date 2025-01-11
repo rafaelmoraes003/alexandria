@@ -51,4 +51,12 @@ public class BookService {
     return bookRepository.save(bookFromDb);
   }
 
+  public Book deleteById(Long id) throws ObjectNotFoundException {
+    Book book = findById(id);
+
+    bookRepository.deleteById(id);
+
+    return book;
+  }
+
 }
