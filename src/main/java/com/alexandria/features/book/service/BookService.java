@@ -2,6 +2,8 @@ package com.alexandria.features.book.service;
 
 import com.alexandria.exception.ObjectNotFoundException;
 import com.alexandria.features.book.entity.Book;
+import com.alexandria.features.book.entity.BookDetail;
+import com.alexandria.features.book.repository.BookDetailRepository;
 import com.alexandria.features.book.repository.BookRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,15 @@ import org.springframework.stereotype.Service;
 public class BookService {
 
   private final BookRepository bookRepository;
+  private final BookDetailRepository bookDetailRepository;
 
   @Autowired
   public BookService(
-      BookRepository bookRepository
+      BookRepository bookRepository,
+      BookDetailRepository bookDetailRepository
   ) {
     this.bookRepository = bookRepository;
+    this.bookDetailRepository = bookDetailRepository;
   }
 
   public Book findById(Long id) throws ObjectNotFoundException {
@@ -57,6 +62,13 @@ public class BookService {
     bookRepository.deleteById(id);
 
     return book;
+  }
+
+  public BookDetail createBookDetail(Long bookId, BookDetail bookDetail)
+      throws ObjectNotFoundException {
+    Book book = findById(bookId);
+    bookDetail.setBook(book);
+    return bookDetailRepository.save(bookDetail);
   }
 
 }
