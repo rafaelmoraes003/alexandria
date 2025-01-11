@@ -42,4 +42,13 @@ public class BookService {
     return bookRepository.save(book);
   }
 
+  public Book update(Long id, Book book) throws ObjectNotFoundException {
+    Book bookFromDb = findById(id);
+
+    bookFromDb.setTitle(book.getTitle());
+    bookFromDb.setGenre(book.getGenre());
+
+    return bookRepository.save(bookFromDb);
+  }
+
 }
