@@ -38,4 +38,8 @@ public class BookService {
     return page.toList();
   }
 
+  public Book create(Book book) {
+    return bookRepository.save(book);
+  }
+
 }
