@@ -82,4 +82,16 @@ public class BookService {
     return bookDetail;
   }
 
+  public BookDetail updateBookDetail(Long bookId, BookDetail bookDetail)
+      throws ObjectNotFoundException {
+    BookDetail bookDetailDB = getBookDetail(bookId);
+
+    bookDetailDB.setSummary(bookDetail.getSummary());
+    bookDetailDB.setPageCount(bookDetail.getPageCount());
+    bookDetailDB.setYear(bookDetail.getYear());
+    bookDetailDB.setIsbn(bookDetail.getIsbn());
+
+    return bookDetailRepository.save(bookDetailDB);
+  }
+
 }
